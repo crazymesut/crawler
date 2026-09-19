@@ -1,0 +1,20 @@
+services:
+  puppeteer-api:
+    image: ghcr.io/crazymesut/crawler:latest
+    pull_policy: always
+    container_name: puppeteer_service
+    env_file:
+      - .env
+    volumes:
+      - user_data:/app/user_data
+    shm_size: '1gb'
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  user_data:
