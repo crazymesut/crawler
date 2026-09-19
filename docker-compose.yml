@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  puppeteer-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: puppeteer_service
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - ./user_data:/app/user_data
+    shm_size: '1gb'
+    restart: always
+
+volumes:
+  node_modules:
