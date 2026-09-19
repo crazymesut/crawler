@@ -130,12 +130,14 @@ async function handleMessage(msg) {
         html.length > HTML_PREVIEW_LENGTH ? '...' : ''
       }`
     );
-    await postResult(callbackUrl, { jobId, url, success: true, status, html });
+    // Gelen payload'daki tüm alanlar (jobId, store_id, tyProductId vb. her ne varsa)
+    // olduğu gibi geri gönderilir; üzerine tarama sonucu eklenir.
+    await postResult(callbackUrl, { ...payload, success: true, status, html });
     console.log(`[Job ${jobId || '-'}] Tamamlandı, sonuç gönderildi -> ${callbackUrl}`);
   } catch (error) {
     console.error(`[Job ${jobId || '-'}] Hata:`, error.message);
     try {
-      await postResult(callbackUrl, { jobId, url, success: false, error: error.message });
+      await postResult(callbackUrl, { ...payload, success: false, error: error.message });
     } catch (callbackError) {
       console.error(`[Job ${jobId || '-'}] Callback gönderilemedi:`, callbackError.message);
     }
