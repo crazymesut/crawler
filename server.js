@@ -112,6 +112,8 @@ async function handleMessage(msg) {
 
   const { url, callbackUrl, jobId } = payload;
 
+  console.log(`[Job ${jobId || '-'}] Gelen payload:`, JSON.stringify(payload));
+
   if (!url || !callbackUrl) {
     console.error('[Mesaj] Geçersiz payload, "url" ve "callbackUrl" alanları zorunludur:', payload);
     channel.ack(msg);
