@@ -19,9 +19,6 @@ jobs:
       - name: Kodu çek
         uses: actions/checkout@v4
 
-      - name: QEMU kur (çoklu mimari build için)
-        uses: docker/setup-qemu-action@v3
-
       - name: Buildx kur
         uses: docker/setup-buildx-action@v3
 
@@ -36,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
