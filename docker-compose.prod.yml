@@ -1,6 +1,7 @@
 services:
   puppeteer-api:
     image: ghcr.io/crazymesut/crawler:latest
+    platform: linux/amd64
     pull_policy: always
     env_file:
       - .env
