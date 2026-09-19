@@ -150,6 +150,7 @@ async function handleMessage(msg) {
   }
 }
 
+
 async function connectRabbitMQ() {
   for (;;) {
     try {
