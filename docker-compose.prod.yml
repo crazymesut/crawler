@@ -1,12 +1,18 @@
 services:
   puppeteer-api:
-    image: ghcr.io/crazymesut/crawler:latest
-    platform: linux/amd64
-    pull_policy: always
+    image: ${CRAWLER_IMAGE:-ghcr.io/crazymesut/crawler:latest}
+    platform: ${CRAWLER_PLATFORM:-linux/amd64}
+    pull_policy: ${CRAWLER_PULL_POLICY:-always}
+    init: true
     env_file:
       - .env
     shm_size: '1gb'
     restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
       interval: 30s
